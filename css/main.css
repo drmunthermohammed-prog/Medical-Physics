@@ -306,16 +306,10 @@ header, .controls, .video-section, .grid-container, .footer-note { position: rel
     content: "";
     position: absolute;
     top: -2px; left: -2px; right: -2px; bottom: -2px;
-    background: linear-gradient(45deg, #38bdf8, #a855f7, #fbbf24, #38bdf8);
-    background-size: 400% 400%;
+    background: linear-gradient(135deg, #38bdf8, #a855f7, #fbbf24, #38bdf8);
     border-radius: 27px;
     z-index: -1;
-    animation: borderRotate 6s linear infinite;
-    opacity: 0.6;
-}
-@keyframes borderRotate {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 400% 50%; }
+    opacity: 0.45;
 }
 
 .video-title {
@@ -1464,3 +1458,72 @@ header, .controls, .video-section, .grid-container, .footer-note { position: rel
         padding: 3px 10px;
     }
 }
+
+
+/* ========== تحسينات الأداء ========== */
+
+/* تسريع عرض الشبكة */
+.grid-container {
+    will-change: scroll-position;
+    content-visibility: auto;
+}
+
+.grid-item {
+    contain: layout style paint;
+}
+
+/* تحسين عرض الصور */
+.grid-item img {
+    content-visibility: auto;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* تحسين بطاقات النافذة المنبثقة */
+.modal-card-inner {
+    will-change: transform;
+}
+
+/* تحسين المؤثرات الخفيفة على العناوين */
+.atom-icon,
+.graduation-cap {
+    will-change: transform;
+}
+
+/* مؤشرات لتحسين الأداء */
+.congrats-highlight {
+    will-change: box-shadow;
+}
+
+
+/* ========== تعطيل الحركات الثقيلة على الجوال ========== */
+@media (max-width: 768px) {
+    .poster-header::before,
+    .poster-header::after {
+        display: none;
+    }
+    
+    body::before,
+    body::after {
+        opacity: 0.5;
+    }
+    
+    .atom-icon,
+    .graduation-cap {
+        animation-duration: 5s;
+    }
+}
+
+/* ========== احترام إعدادات المستخدم ========== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
