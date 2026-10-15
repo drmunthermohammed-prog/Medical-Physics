@@ -31,9 +31,9 @@ const students = [
     {
         id: 2,
         name: "بنين الموسوي",
-        jobTitle: "أخصائي فيزياء طبية",
+        jobTitle: "متعرف راسها من ايديها",
         grade: "ممتاز",
-        message: "كل جرعة إشعاع نحسبها بدقة، هي أمل جديد لمريض ينتظر الشفاء.",
+        message: "اذا كان الزواج مفيد كان فاد اهل المقابر",
         childImg: "images/2_child.jpg",
         adultImg: "images/2_adult.jpg",
         awards: [
@@ -44,35 +44,23 @@ const students = [
     {
         id: 3,
         name: "زينب بنت الديوانية",
-        jobTitle: "طبيبة أورام إشعاعية",
+        jobTitle: "بشيشين",
         grade: "جيد جداً",
-        message: "اخترت الفيزياء الطبية لأنها تجمع بين عقل العالم وقلب الطبيب.",
+        message: "الي يجوع ياكل رح يشبع",
         childImg: "images/3_child.jpg",
         adultImg: "images/3_adult.jpg",
         awards: []
     },
     {
         id: 4,
-        name: "مجهول الهوية",
-        jobTitle: "باحثة في الطب النووي",
+        name: "سارة عقيل",
+        jobTitle: "أخصائي فيزياء طبية",
         grade: "ممتاز",
         message: "العلم رسالة، وأنا اخترت أن تكون رسالتي شفاءً للناس.",
         childImg: "images/4_child.jpg",
         adultImg: "images/4_adult.jpg",
         awards: [
             "📚 أكثر شخص مثابر"
-        ]
-    },
-    {
-        id: 5,
-        name: "نور كامل المالكي",
-        jobTitle: "أخصائي علاج إشعاعي",
-        grade: "جيد جداً",
-        message: "بين الأرقام والمرضى، وجدت معنى حياتي.",
-        childImg: "images/5_child.jpg",
-        adultImg: "images/5_adult.jpg",
-        awards: [
-            "🌙 ملك السهر"
         ]
     }
     
