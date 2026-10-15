@@ -306,16 +306,10 @@ header, .controls, .video-section, .grid-container, .footer-note { position: rel
     content: "";
     position: absolute;
     top: -2px; left: -2px; right: -2px; bottom: -2px;
-    background: linear-gradient(45deg, #38bdf8, #a855f7, #fbbf24, #38bdf8);
-    background-size: 400% 400%;
+    background: linear-gradient(135deg, #38bdf8, #a855f7, #fbbf24, #38bdf8);
     border-radius: 27px;
     z-index: -1;
-    animation: borderRotate 6s linear infinite;
-    opacity: 0.6;
-}
-@keyframes borderRotate {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 400% 50%; }
+    opacity: 0.45;
 }
 
 .video-title {
@@ -672,9 +666,26 @@ header, .controls, .video-section, .grid-container, .footer-note { position: rel
     box-shadow: 0 20px 60px rgba(56, 189, 248, 0.5), 0 0 100px rgba(56, 189, 248, 0.2);
 }
 
-.modal-front img, .modal-back img { height: 50%; object-position: center 15%; }
-.modal-front img { height: 80%; }
-.modal-back img { height: 85%; }
+/* صور البطاقة */
+.modal-front img,
+.modal-back img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+}
+
+/* صورة الطفل (Front): 80% من البطاقة */
+.modal-front img {
+    height: 80%;
+    object-position: center 15%;
+}
+
+/* صورة الكبير (Back): 68% من البطاقة */
+.modal-back img {
+    height: 68%;
+    object-position: center 20%;
+}
 
 
 .modal-front .name-tag {
@@ -696,7 +707,7 @@ header, .controls, .video-section, .grid-container, .footer-note { position: rel
 }
 
 .modal-back .info-tag {
-    height: 40%;
+    height: 32%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -711,35 +722,38 @@ header, .controls, .video-section, .grid-container, .footer-note { position: rel
 
 .modal-back .info-tag .name {
     font-weight: 800;
-    font-size: 1rem;
-    letter-spacing: 1px;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
     color: white;
     text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+    line-height: 1.2;
+    text-align: center;
 }
 
 .modal-back .info-tag .job-title {
-    font-size: 0.7rem;
+    font-size: 0.62rem;
     color: #fcd34d;
     font-weight: 700;
-    padding: 2px 10px;
+    padding: 2px 8px;
     background: rgba(251, 191, 36, 0.15);
-    border-radius: 15px;
+    border-radius: 12px;
     border: 1px solid rgba(251, 191, 36, 0.4);
+    line-height: 1.2;
 }
 
 .modal-back .info-tag .message {
-    font-size: 0.65rem;
+    font-size: 0.58rem;
     color: #cbd5e1;
     font-style: italic;
-    line-height: 1.5;
-    margin-top: 5px;
-    padding: 8px 10px;
+    line-height: 1.4;
+    margin-top: 3px;
+    padding: 5px 8px;
     border-right: 2px solid #38bdf8;
     background: rgba(56, 189, 248, 0.08);
     border-radius: 5px;
     text-align: right;
     width: 100%;
-    max-height: 55px;
+    max-height: 40px;
     overflow-y: auto;
 }
 
@@ -1388,10 +1402,10 @@ header, .controls, .video-section, .grid-container, .footer-note { position: rel
 .modal-awards {
     display: none;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 3px;
     justify-content: center;
-    margin: 5px 0;
-    max-height: 60px;
+    margin: 2px 0;
+    max-height: 32px;
     overflow-y: auto;
     width: 100%;
 }
@@ -1399,17 +1413,16 @@ header, .controls, .video-section, .grid-container, .footer-note { position: rel
 .modal-award-badge {
     display: inline-block;
     font-family: 'Cairo', sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.5rem;
     font-weight: 700;
     color: #fbbf24;
     background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(184, 134, 11, 0.15));
     border: 1px solid rgba(251, 191, 36, 0.5);
-    padding: 3px 9px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    padding: 1px 6px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
     white-space: nowrap;
-    animation: awardGlow 2s ease-in-out infinite;
-    line-height: 1.3;
+    line-height: 1.2;
 }
 
 @keyframes awardGlow {
@@ -1419,8 +1432,9 @@ header, .controls, .video-section, .grid-container, .footer-note { position: rel
 
 /* تعديل ارتفاع info-tag لاستيعاب الجوائز */
 .modal-back .info-tag {
-    gap: 4px;
-    padding: 10px 12px;
+    gap: 3px;
+    padding: 8px 10px;
+    justify-content: center;
 }
 
 @media (max-width: 600px) {
