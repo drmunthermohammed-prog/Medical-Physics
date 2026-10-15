@@ -1,0 +1,561 @@
+/* =========================================================
+   awards.css - أنماط صفحة جوائز الدفعة
+   ========================================================= */
+
+/* ===== الترويسة ===== */
+.awards-header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+    padding: 25px 20px;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 25px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4), inset 0 0 60px rgba(212, 175, 55, 0.08);
+    margin-bottom: 30px;
+    animation: fadeInDown 0.7s ease-out;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.back-home-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 14px;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(125, 211, 252, 0.4);
+    border-radius: 30px;
+    color: #7dd3fc;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+.back-home-btn:hover {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: #7dd3fc;
+    color: #ffffff;
+    transform: translateX(-3px);
+}
+
+.trophy-icon {
+    display: block;
+    font-size: 3.5rem;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.9));
+    animation: bounce 3s ease-in-out infinite;
+}
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-10px) scale(1.05); }
+}
+
+.awards-header h1 {
+    font-family: 'Aref Ruqaa', 'Amiri', serif;
+    font-size: 2.8rem;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.6), 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.awards-header h2 {
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    color: #d4af37;
+    letter-spacing: 6px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.awards-subtitle {
+    color: #bae6fd;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+
+/* ===== شريط التقدم ===== */
+.progress-wrapper {
+    margin-top: 15px;
+    padding: 12px 18px;
+    background: rgba(2, 6, 23, 0.6);
+    border-radius: 15px;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.progress-text {
+    color: #cbd5e1;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.progress-text span {
+    color: #fbbf24;
+    font-weight: 900;
+    font-size: 0.95rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #d4af37, #fbbf24, #d4af37);
+    background-size: 200% 100%;
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+    animation: shimmerProgress 2s linear infinite;
+}
+
+@keyframes shimmerProgress {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* ===== حاوية الجوائز ===== */
+.awards-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* ===== بطاقة جائزة ===== */
+.award-category {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 22px;
+    padding: 22px 20px;
+    border: 1px solid rgba(125, 211, 252, 0.2);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35), inset 0 0 40px rgba(59, 130, 246, 0.05);
+    position: relative;
+    overflow: hidden;
+    animation: cardSlide 0.5s ease-out backwards;
+    transition: all 0.3s;
+}
+
+@keyframes cardSlide {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.award-category::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--award-color, #38bdf8);
+    opacity: 0.8;
+    box-shadow: 0 0 20px var(--award-color, #38bdf8);
+}
+
+.award-category:hover {
+    border-color: rgba(125, 211, 252, 0.4);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), inset 0 0 60px rgba(59, 130, 246, 0.08);
+}
+
+/* ترويسة الجائزة */
+.award-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(125, 211, 252, 0.15);
+}
+
+.award-icon {
+    font-size: 2.2rem;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent 70%);
+    border-radius: 50%;
+    border: 2px solid var(--award-color, #d4af37);
+    box-shadow: 0 0 20px var(--award-color, #d4af37);
+    filter: drop-shadow(0 0 10px var(--award-color, #d4af37));
+    flex-shrink: 0;
+}
+
+.award-title-wrap {
+    flex: 1;
+    text-align: right;
+}
+
+.award-title {
+    font-family: 'Aref Ruqaa', 'Amiri', serif;
+    font-size: 1.4rem;
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 3px;
+    letter-spacing: 0.5px;
+}
+
+.award-meta {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+/* قائمة المرشحين */
+.nominees {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nominee {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(2, 6, 23, 0.5);
+    border-radius: 15px;
+    border: 1.5px solid rgba(125, 211, 252, 0.15);
+    position: relative;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.nominee:hover {
+    background: rgba(2, 6, 23, 0.75);
+    border-color: rgba(125, 211, 252, 0.4);
+    transform: translateX(-3px);
+}
+
+.nominee.is-winner {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(184, 134, 11, 0.08));
+    border-color: #d4af37;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.35), inset 0 0 20px rgba(212, 175, 55, 0.08);
+}
+
+.nominee.is-winner::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    border-radius: 15px;
+    background: linear-gradient(45deg, #d4af37, #fbbf24, #d4af37, #fbbf24);
+    background-size: 400% 400%;
+    z-index: -1;
+    animation: borderShine 3s linear infinite;
+    opacity: 0.6;
+}
+
+@keyframes borderShine {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 400% 50%; }
+}
+
+.nominee.is-voted {
+    border-color: #38bdf8;
+    background: rgba(56, 189, 248, 0.08);
+}
+
+/* صورة المرشح */
+.nominee-photo {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgba(125, 211, 252, 0.4);
+    flex-shrink: 0;
+    position: relative;
+    background: #1e3a8a;
+}
+
+.nominee.is-winner .nominee-photo {
+    border-color: #d4af37;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+}
+
+.nominee-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* تاج الفائز */
+.crown {
+    position: absolute;
+    top: -12px;
+    right: -8px;
+    font-size: 1.6rem;
+    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.9));
+    animation: crownFloat 2s ease-in-out infinite;
+    z-index: 2;
+}
+
+@keyframes crownFloat {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-4px) rotate(5deg); }
+}
+
+/* معلومات المرشح */
+.nominee-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.nominee-name {
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nominee.is-winner .nominee-name {
+    color: #fbbf24;
+    text-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
+}
+
+.nominee-job {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nominee.is-winner .nominee-job { color: #fcd34d; }
+
+/* شريط الأصوات */
+.vote-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(15, 23, 42, 0.9);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.vote-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+    border-radius: 8px;
+    width: 0%;
+    transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.nominee.is-winner .vote-fill {
+    background: linear-gradient(90deg, #d4af37, #fbbf24);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+}
+
+/* عدد الأصوات */
+.vote-count {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 8px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    pointer-events: none;
+    line-height: 8px;
+}
+
+/* زر التصويت */
+.vote-btn {
+    padding: 8px 14px;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1.5px solid rgba(212, 175, 55, 0.5);
+    border-radius: 25px;
+    color: #fbbf24;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.vote-btn:hover:not(:disabled) {
+    background: rgba(212, 175, 55, 0.3);
+    border-color: #fbbf24;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.vote-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.vote-btn.voted {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: #10b981;
+    color: #34d399;
+}
+
+.vote-btn.voted::before {
+    content: "✓";
+    font-size: 1rem;
+    margin-left: 3px;
+}
+
+/* ===== رسالة النهاية ===== */
+.all-voted-message {
+    display: none;
+    position: relative;
+    z-index: 1;
+    margin-top: 30px;
+    padding: 35px 25px;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(184, 134, 11, 0.05));
+    border: 2px solid #d4af37;
+    border-radius: 25px;
+    max-width: 600px;
+    box-shadow: 0 25px 80px rgba(212, 175, 55, 0.3);
+    animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.all-voted-message.active { display: block; }
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.celebration-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 12px;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.all-voted-message h2 {
+    font-family: 'Aref Ruqaa', 'Amiri', serif;
+    color: #fbbf24;
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+}
+
+.all-voted-message p {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.reset-votes-btn {
+    padding: 12px 24px;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 25px;
+    color: #d4af37;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.reset-votes-btn:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: #d4af37;
+    color: #fbbf24;
+    transform: translateY(-2px);
+}
+
+/* ===== Toast ===== */
+.loading-toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.6);
+    z-index: 3000;
+    transition: transform 0.4s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Cairo', sans-serif;
+}
+.loading-toast.show { transform: translateX(-50%) translateY(0); }
+.loading-toast.success { background: linear-gradient(135deg, #10b981, #059669); }
+.loading-toast.error { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+/* ===== استجابة الجوال ===== */
+@media (max-width: 600px) {
+    .awards-header { padding: 20px 15px; }
+    .back-home-btn { padding: 6px 10px; font-size: 0.7rem; top: 12px; right: 12px; }
+    .trophy-icon { font-size: 2.8rem; }
+    .awards-header h1 { font-size: 2rem; letter-spacing: 1px; }
+    .awards-header h2 { font-size: 0.75rem; letter-spacing: 4px; }
+    .awards-subtitle { font-size: 0.8rem; }
+    
+    .award-category { padding: 18px 14px; }
+    .award-icon { width: 45px; height: 45px; font-size: 1.8rem; }
+    .award-title { font-size: 1.15rem; }
+    .award-meta { font-size: 0.7rem; }
+    
+    .nominee { padding: 10px 10px; gap: 10px; }
+    .nominee-photo { width: 45px; height: 45px; }
+    .nominee-name { font-size: 0.88rem; }
+    .nominee-job { font-size: 0.65rem; }
+    .vote-btn { padding: 6px 10px; font-size: 0.68rem; }
+    .crown { font-size: 1.3rem; top: -10px; right: -6px; }
+    
+    .all-voted-message { padding: 25px 18px; }
+    .celebration-icon { font-size: 3rem; }
+    .all-voted-message h2 { font-size: 1.4rem; }
+    .all-voted-message p { font-size: 0.85rem; }
+}
+
+/* ===== حركة تقدم الأصوات ===== */
+@keyframes countPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}

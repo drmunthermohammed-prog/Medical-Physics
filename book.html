@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كتاب الذكريات | الفيزياء الطبية 2027</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;900&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/book.css">
+</head>
+<body class="book-body">
+
+    <!-- خلفية خشب فاخرة -->
+    <div class="wood-bg"></div>
+
+    <!-- ===== الشريط العلوي ===== -->
+    <header class="book-topbar">
+        <a href="index.html" class="book-back-btn" title="العودة للرئيسية">
+            <span>→</span>
+            <span class="back-text">الرئيسية</span>
+        </a>
+        
+        <div class="book-title-wrap">
+            <span class="book-title-icon">📖</span>
+            <div>
+                <h1>كتاب الذكريات</h1>
+                <p>Memory Book — دفعة 2027</p>
+            </div>
+        </div>
+        
+        <div class="book-topbar-actions">
+            <button class="book-music-btn" id="bookMusicBtn" title="تشغيل/إيقاف الموسيقى">
+                <span id="musicIcon">🎵</span>
+            </button>
+			<button class="book-music-list-btn" id="bookMusicListBtn" title="اختيار الموسيقى">
+        <span>🎼</span>
+    </button>
+        </div>
+    </header>
+
+    <!-- ===== شريط البحث ===== -->
+    <div class="book-search-wrap">
+        <div class="book-search-inner">
+            <span class="search-ico">🔍</span>
+            <input 
+                type="text" 
+                id="bookSearchInput" 
+                class="book-search-input" 
+                placeholder="ابحث عن طالب بالاسم..." 
+                autocomplete="off">
+            <button class="book-search-clear" id="bookSearchClear" style="display:none;">✕</button>
+            
+            <!-- الاقتراحات -->
+            <div class="book-search-suggestions" id="bookSearchSuggestions"></div>
+        </div>
+    </div>
+
+    <!-- ===== مؤشر الصفحة ===== -->
+    <div class="book-page-indicator">
+        <span class="page-ind-label">الصفحة</span>
+        <span class="page-ind-current" id="pageIndicatorCurrent">1</span>
+        <span class="page-ind-divider">/</span>
+        <span class="page-ind-total" id="pageIndicatorTotal">126</span>
+    </div>
+
+    <!-- ===== المشهد ===== -->
+    <div class="book-scene">
+        
+        <!-- زر السابق -->
+        <button class="book-nav book-nav-prev" id="bookPrevBtn" title="السابق">
+            <span class="nav-ico">‹</span>
+        </button>
+        
+        <!-- الكتاب -->
+        <div class="book" id="book">
+            <div class="book-cover-back"></div>
+            <div class="book-inner" id="bookInner">
+                
+                <!-- الصفحة اليسرى (الطفل) -->
+                <div class="book-page book-page-left" id="leftPage"></div>
+                
+                <!-- الصفحة اليمنى (الكبير) -->
+                <div class="book-page book-page-right" id="rightPage"></div>
+                
+                <!-- كعب الكتاب -->
+                <div class="book-spine"></div>
+                
+                <!-- الصفحة القلابة -->
+                <div class="flip-wrapper" id="flipWrapper">
+                    <div class="flip-face flip-front" id="flipFront"></div>
+                    <div class="flip-face flip-back" id="flipBack"></div>
+                    <div class="flip-shadow" id="flipShadow"></div>
+                </div>
+                
+            </div>
+            <div class="book-cover-front"></div>
+        </div>
+        
+        <!-- زر التالي -->
+        <button class="book-nav book-nav-next" id="bookNextBtn" title="التالي">
+            <span class="nav-ico">›</span>
+        </button>
+        
+    </div>
+
+    <!-- ===== شريط سفلي ===== -->
+    <div class="book-bottombar">
+        <button class="book-jump-btn" id="bookFirstBtn">
+            <span>⏮</span> البداية
+        </button>
+        
+        <div class="book-quick-jump">
+            <label for="quickJumpInput">اذهب إلى رقم:</label>
+            <input type="number" id="quickJumpInput" min="1" max="126" placeholder="1-126">
+            <button id="quickJumpGoBtn">اذهب</button>
+        </div>
+        
+        <button class="book-jump-btn" id="bookLastBtn">
+            النهاية <span>⏭</span>
+        </button>
+    </div>
+
+    <!-- رسالة تحميل -->
+    <div class="loading-toast" id="loadingToast"></div>
+
+    <!-- مشغل الموسيقى -->
+<!-- مشغل الموسيقى -->
+<audio id="bookMusic" preload="none"></audio>
+
+<!-- لوحة اختيار الموسيقى -->
+<div class="book-music-panel" id="bookMusicPanel">
+    <div class="book-music-panel-header">
+        <span class="book-music-panel-title">🎵 اختر الموسيقى</span>
+        <button class="book-music-panel-close" id="bookMusicPanelClose">✕</button>
+    </div>
+    <div class="book-music-list" id="bookMusicList"></div>
+</div>
+
+<!-- خلفية معتمة للوحة -->
+<div class="book-music-overlay" id="bookMusicOverlay"></div>
+
+    <!-- السكربتات -->
+    <script src="data/students.js"></script>
+    <script src="js/book.js"></script>
+</body>
+</html>

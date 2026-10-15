@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جوائز الدفعة | الفيزياء الطبية 2027</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;900&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/awards.css">
+</head>
+<body>
+
+    <div class="bg-layer"></div>
+
+    <!-- الترويسة -->
+    <header class="awards-header">
+        <a href="index.html" class="back-home-btn">
+            <span>→</span> العودة للرئيسية
+        </a>
+        <span class="trophy-icon">🏆</span>
+        <h1>جوائز الدفعة</h1>
+        <h2>Fun Awards</h2>
+        <p class="awards-subtitle">الفيزياء الطبية — جامعة الهادي 2027</p>
+        
+        <div class="progress-wrapper" id="progressWrapper">
+            <div class="progress-text">
+                صوّتت في <span id="votedCount">0</span> من <span id="totalCount">0</span> جوائز
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- جوائز الدفعة -->
+    <main class="awards-container" id="awardsContainer"></main>
+
+    <!-- رسالة عند التصويت في كل الفئات -->
+    <div class="all-voted-message" id="allVotedMessage">
+        <span class="celebration-icon">🎉</span>
+        <h2>صوّتت في جميع الجوائز!</h2>
+        <p>شكراً لك على مشاركتك. النتائج النهائية ستُعلَن في حفل التخرج.</p>
+        <button class="reset-votes-btn" id="resetVotesBtn">
+            🔄 إعادة التصويت
+        </button>
+    </div>
+
+    <div class="loading-toast" id="loadingToast"></div>
+
+    <script src="data/students.js"></script>
+    <script src="data/awards.js"></script>
+    <script src="js/awards.js"></script>
+</body>
+</html>

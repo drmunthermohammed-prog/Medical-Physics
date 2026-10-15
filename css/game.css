@@ -1,0 +1,821 @@
+/* =========================================================
+   game.css - أنماط لعبة خمّن مَن
+   ========================================================= */
+
+.game-body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 15px;
+}
+
+/* ===== الشاشات المشتركة ===== */
+.game-screen {
+    display: none;
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    z-index: 1;
+    animation: screenFade 0.5s ease-out;
+}
+
+.game-screen.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@keyframes screenFade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   شاشة البداية
+   ========================================================= */
+.start-content {
+    text-align: center;
+    padding: 40px 25px;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 25px;
+    border: 1px solid rgba(125, 211, 252, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.08);
+    width: 100%;
+}
+
+.start-icon {
+    display: block;
+    font-size: 5rem;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.8));
+    animation: bounce 2.5s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-12px) rotate(5deg); }
+}
+
+.start-content h1 {
+    font-family: 'Aref Ruqaa', 'Amiri', serif;
+    font-size: 3rem;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 30px rgba(56, 189, 248, 0.7), 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.start-subtitle {
+    color: #7dd3fc;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 25px;
+}
+
+.start-rules {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+    padding: 18px;
+    background: rgba(2, 6, 23, 0.5);
+    border-radius: 18px;
+    border: 1px solid rgba(125, 211, 252, 0.15);
+}
+
+.rule-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #cbd5e1;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-align: right;
+    padding: 6px 0;
+}
+
+.rule-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
+}
+
+.start-btn {
+    width: 100%;
+    padding: 16px 30px;
+    background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.6), 0 0 60px rgba(56, 189, 248, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.start-btn::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s;
+}
+
+.start-btn:hover::before { left: 100%; }
+
+.start-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(14, 165, 233, 0.8), 0 0 80px rgba(56, 189, 248, 0.5);
+}
+
+.start-btn span {
+    font-size: 1.2rem;
+}
+
+.back-home-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.back-home-link:hover { color: #7dd3fc; }
+
+/* =========================================================
+   شاشة اللعب
+   ========================================================= */
+.play-screen {
+    gap: 15px;
+}
+
+.game-topbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    border: 1px solid rgba(125, 211, 252, 0.25);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.question-counter {
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #cbd5e1;
+}
+
+.question-counter span {
+    color: #38bdf8;
+    font-weight: 900;
+    font-size: 1.15rem;
+    padding: 0 4px;
+}
+
+.score-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(184, 134, 11, 0.1));
+    border: 1.5px solid rgba(212, 175, 55, 0.5);
+    border-radius: 20px;
+    color: #fbbf24;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.score-badge span {
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+
+/* شريط التقدم */
+.game-progress {
+    width: 100%;
+    height: 6px;
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.game-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #38bdf8, #0ea5e9, #38bdf8);
+    background-size: 200% 100%;
+    border-radius: 10px;
+    width: 10%;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.7);
+    animation: shimmerProgress 2s linear infinite;
+}
+
+@keyframes shimmerProgress {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* ===== المؤقت الدائري ===== */
+.timer-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 4px 0;
+}
+
+.timer-circle {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-circle svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.timer-bg {
+    fill: none;
+    stroke: rgba(125, 211, 252, 0.15);
+    stroke-width: 4;
+}
+
+.timer-fg {
+    fill: none;
+    stroke: #38bdf8;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 163.36; /* 2 * PI * 26 */
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.3s linear, stroke 0.3s ease;
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.8));
+}
+
+.timer-fg.warning {
+    stroke: #fbbf24;
+    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.9));
+}
+
+.timer-fg.danger {
+    stroke: #ef4444;
+    filter: drop-shadow(0 0 10px rgba(239, 68, 68, 1));
+    animation: pulseDanger 0.6s ease-in-out infinite;
+}
+
+@keyframes pulseDanger {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.timer-text {
+    position: relative;
+    z-index: 2;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.timer-text.warning { color: #fbbf24; }
+.timer-text.danger { color: #ef4444; animation: pulseDanger 0.6s ease-in-out infinite; }
+
+/* ===== بطاقة السؤال ===== */
+.question-card {
+    width: 100%;
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 25px;
+    border: 1px solid rgba(125, 211, 252, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(59, 130, 246, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: cardSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cardSlideIn {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.question-photo-wrap {
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, #1e3a8a, #0ea5e9);
+    padding: 4px;
+    box-shadow: 0 15px 40px rgba(56, 189, 248, 0.4), 0 0 80px rgba(56, 189, 248, 0.2);
+}
+
+.question-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+}
+
+.photo-frame-corner {
+    position: absolute;
+    font-size: 1.2rem;
+    color: #d4af37;
+    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.9));
+    z-index: 3;
+    animation: cornerTwinkle 3s ease-in-out infinite;
+}
+
+@keyframes cornerTwinkle {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+.photo-frame-corner.tl { top: 10px; right: 10px; }
+.photo-frame-corner.tr { top: 10px; left: 10px; }
+.photo-frame-corner.bl { bottom: 10px; right: 10px; }
+.photo-frame-corner.br { bottom: 10px; left: 10px; }
+
+.question-title {
+    text-align: center;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== خيارات الأسماء ===== */
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-btn {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(2, 6, 23, 0.5);
+    border: 2px solid rgba(125, 211, 252, 0.25);
+    border-radius: 15px;
+    color: #ffffff;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.option-btn::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.15), transparent);
+    transition: left 0.5s;
+}
+
+.option-btn:hover::before { left: 100%; }
+
+.option-btn:hover:not(:disabled) {
+    background: rgba(2, 6, 23, 0.75);
+    border-color: #38bdf8;
+    transform: translateX(-4px);
+    box-shadow: 0 5px 20px rgba(56, 189, 248, 0.3);
+}
+
+.option-letter {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    box-shadow: 0 3px 10px rgba(14, 165, 233, 0.4);
+}
+
+.option-name {
+    flex: 1;
+    text-align: right;
+}
+
+.option-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* حالة الإجابة الصحيحة */
+.option-btn.correct {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.15));
+    border-color: #10b981;
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.5);
+    animation: correctPulse 0.6s ease-out;
+}
+
+.option-btn.correct .option-letter {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.7);
+}
+
+.option-btn.correct::after {
+    content: "✓";
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: #10b981;
+    font-weight: 900;
+    animation: checkPop 0.4s ease-out;
+}
+
+@keyframes checkPop {
+    0% { transform: translateY(-50%) scale(0); }
+    50% { transform: translateY(-50%) scale(1.3); }
+    100% { transform: translateY(-50%) scale(1); }
+}
+
+@keyframes correctPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+/* حالة الإجابة الخاطئة */
+.option-btn.wrong {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.15));
+    border-color: #ef4444;
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
+    animation: shake 0.5s ease-out;
+}
+
+.option-btn.wrong .option-letter {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.7);
+}
+
+.option-btn.wrong::after {
+    content: "✕";
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: #ef4444;
+    font-weight: 900;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+}
+
+/* ===== التغذية الراجعة ===== */
+.feedback-overlay {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 500;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.feedback-overlay.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.feedback-content {
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(15px);
+    padding: 25px 40px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(125, 211, 252, 0.5);
+    min-width: 220px;
+}
+
+.feedback-content.correct {
+    border-color: #10b981;
+    box-shadow: 0 25px 60px rgba(16, 185, 129, 0.4), 0 0 80px rgba(16, 185, 129, 0.3);
+}
+
+.feedback-content.wrong {
+    border-color: #ef4444;
+    box-shadow: 0 25px 60px rgba(239, 68, 68, 0.4), 0 0 80px rgba(239, 68, 68, 0.3);
+}
+
+.feedback-icon {
+    font-size: 3.5rem;
+    margin-bottom: 8px;
+    animation: feedbackPop 0.5s ease-out;
+}
+
+@keyframes feedbackPop {
+    0% { transform: scale(0) rotate(-180deg); }
+    60% { transform: scale(1.3) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.feedback-text {
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+.feedback-text .student-name {
+    color: #fbbf24;
+    font-size: 1.15rem;
+    display: block;
+    margin-top: 5px;
+}
+
+/* =========================================================
+   شاشة النتيجة
+   ========================================================= */
+.result-content {
+    text-align: center;
+    padding: 35px 25px;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 25px;
+    border: 2px solid rgba(212, 175, 55, 0.4);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5), 0 0 100px rgba(212, 175, 55, 0.15);
+    width: 100%;
+    animation: resultPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes resultPop {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.result-badge {
+    font-size: 5rem;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.9));
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.result-title {
+    font-family: 'Aref Ruqaa', 'Amiri', serif;
+    font-size: 2.2rem;
+    color: #fbbf24;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-shadow: 0 0 25px rgba(251, 191, 36, 0.6);
+    letter-spacing: 1px;
+}
+
+.result-subtitle {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 22px;
+    line-height: 1.6;
+}
+
+.result-score-box {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(184, 134, 11, 0.1));
+    border: 2px solid #d4af37;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+}
+
+.result-score-number {
+    font-family: 'Cairo', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+}
+
+.result-score-label {
+    font-size: 1rem;
+    color: #cbd5e1;
+    font-weight: 700;
+}
+
+.result-stars {
+    font-size: 1.8rem;
+    margin-bottom: 22px;
+    letter-spacing: 8px;
+    filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.8));
+}
+
+.result-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(2, 6, 23, 0.5);
+    border-radius: 15px;
+    border: 1px solid rgba(125, 211, 252, 0.15);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 4px;
+    border-radius: 10px;
+    background: rgba(15, 23, 42, 0.5);
+}
+
+.stat-icon {
+    font-size: 1.4rem;
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
+}
+
+.stat-value {
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* أزرار النتيجة */
+.result-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.result-btn {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 15px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: white;
+    letter-spacing: 0.5px;
+}
+
+.result-btn.primary {
+    background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+    box-shadow: 0 8px 25px rgba(14, 165, 233, 0.5);
+}
+.result-btn.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(14, 165, 233, 0.7);
+}
+
+.result-btn.share {
+    background: linear-gradient(135deg, #a855f7, #7c3aed);
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5);
+}
+.result-btn.share:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(168, 85, 247, 0.7);
+}
+
+.result-btn.secondary {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1.5px solid rgba(125, 211, 252, 0.3);
+    color: #7dd3fc;
+}
+.result-btn.secondary:hover {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: #7dd3fc;
+    color: #ffffff;
+}
+
+/* ===== Toast ===== */
+.loading-toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.6);
+    z-index: 3000;
+    transition: transform 0.4s ease;
+    font-family: 'Cairo', sans-serif;
+}
+.loading-toast.show { transform: translateX(-50%) translateY(0); }
+.loading-toast.success { background: linear-gradient(135deg, #10b981, #059669); }
+.loading-toast.error { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+/* ===== استجابة الجوال ===== */
+@media (max-width: 600px) {
+    .start-content { padding: 30px 20px; }
+    .start-content h1 { font-size: 2.2rem; }
+    .start-icon { font-size: 4rem; }
+    .start-subtitle { font-size: 0.9rem; }
+    .rule-item { font-size: 0.82rem; }
+    .start-btn { font-size: 1rem; padding: 14px 24px; }
+    
+    .game-topbar { padding: 10px 14px; }
+    .question-counter { font-size: 0.85rem; }
+    .question-counter span { font-size: 1rem; }
+    .score-badge { padding: 5px 11px; font-size: 0.85rem; }
+    
+    .timer-circle { width: 60px; height: 60px; }
+    .timer-text { font-size: 1.2rem; }
+    
+    .question-card { padding: 15px; gap: 12px; }
+    .question-photo-wrap { max-width: 240px; }
+    .question-title { font-size: 1rem; }
+    
+    .option-btn { padding: 12px 14px; font-size: 0.9rem; gap: 10px; }
+    .option-letter { width: 28px; height: 28px; font-size: 0.8rem; }
+    
+    .result-content { padding: 25px 18px; }
+    .result-badge { font-size: 4rem; }
+    .result-title { font-size: 1.6rem; }
+    .result-score-number { font-size: 2.8rem; }
+    .result-score-box { padding: 12px 22px; }
+    .result-stars { font-size: 1.5rem; letter-spacing: 5px; }
+    .stat-value { font-size: 1.1rem; }
+    .stat-label { font-size: 0.62rem; }
+    .result-btn { padding: 12px 16px; font-size: 0.9rem; }
+    
+    .feedback-content { padding: 20px 30px; min-width: 180px; }
+    .feedback-icon { font-size: 2.8rem; }
+    .feedback-text { font-size: 0.95rem; }
+}

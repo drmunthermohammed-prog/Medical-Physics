@@ -1,0 +1,1710 @@
+/* =========================================================
+   book.css - كتاب الذكريات
+   ========================================================= */
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif; }
+
+html, body {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* =========================================================
+   الخلفية (خشب فاخر)
+   ========================================================= */
+body.book-body {
+    min-height: 100vh;
+    background: #1a0f08;
+    color: #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+    padding-bottom: 30px;
+    position: relative;
+}
+
+.wood-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(139, 105, 20, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(139, 105, 20, 0.1) 0%, transparent 40%),
+        linear-gradient(135deg, #2a1810 0%, #1a0f08 40%, #0f0805 100%);
+}
+
+.wood-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: 
+        repeating-linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.15) 0px,
+            rgba(0, 0, 0, 0.15) 1px,
+            transparent 1px,
+            transparent 3px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(139, 105, 20, 0.03) 0px,
+            rgba(139, 105, 20, 0.03) 2px,
+            transparent 2px,
+            transparent 6px
+        );
+    opacity: 0.4;
+}
+
+/* =========================================================
+   الشريط العلوي
+   ========================================================= */
+.book-topbar {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 18px;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 18px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(212, 175, 55, 0.05);
+    position: relative;
+    z-index: 5;
+    margin-bottom: 15px;
+}
+
+.book-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 14px;
+    background: rgba(2, 6, 23, 0.6);
+    border: 1.5px solid rgba(212, 175, 55, 0.4);
+    border-radius: 12px;
+    color: #fbbf24;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+
+.book-back-btn:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: #fbbf24;
+    color: #ffffff;
+    transform: translateX(-3px);
+}
+
+.book-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    justify-content: center;
+}
+
+.book-title-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.7));
+    animation: bookFloat 4s ease-in-out infinite;
+}
+
+@keyframes bookFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.book-title-wrap h1 {
+    font-family: 'Aref Ruqaa', 'Amiri', serif;
+    font-size: 1.4rem;
+    color: #fbbf24;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+    line-height: 1.2;
+}
+
+.book-title-wrap p {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    letter-spacing: 3px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.book-topbar-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.book-music-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    font-size: 1.15rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.5);
+    position: relative;
+}
+
+.book-music-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(14, 165, 233, 0.8);
+}
+
+.book-music-btn.playing {
+    background: linear-gradient(135deg, #fbbf24, #d4af37);
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.7);
+}
+
+.book-music-btn.playing::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba(251, 191, 36, 0.5);
+    animation: musicPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0; }
+}
+
+/* =========================================================
+   شريط البحث
+   ========================================================= */
+.book-search-wrap {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 10;
+}
+
+.book-search-inner {
+    position: relative;
+    width: 100%;
+}
+
+.search-ico {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fbbf24;
+    font-size: 1rem;
+    pointer-events: none;
+}
+
+.book-search-input {
+    width: 100%;
+    padding: 12px 45px 12px 45px;
+    border: 1.5px solid rgba(212, 175, 55, 0.4);
+    border-radius: 25px;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    color: #ffffff;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    outline: none;
+    transition: all 0.3s;
+    text-align: right;
+}
+
+.book-search-input::placeholder {
+    color: #64748b;
+    font-weight: 500;
+}
+
+.book-search-input:focus {
+    border-color: #fbbf24;
+    background: rgba(15, 23, 42, 0.95);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+}
+
+.book-search-clear {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.book-search-clear:hover {
+    background: rgba(239, 68, 68, 0.4);
+}
+
+.book-search-suggestions {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    margin-top: 6px;
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 15px;
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    display: none;
+}
+
+.book-search-suggestions.active {
+    display: block;
+}
+
+.book-suggestion-item {
+    padding: 11px 18px;
+    color: #e2e8f0;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    transition: all 0.2s;
+    text-align: right;
+    font-size: 0.88rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.book-suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.book-suggestion-item:hover {
+    background: rgba(212, 175, 55, 0.15);
+    color: #fbbf24;
+}
+
+.book-suggestion-id {
+    color: #94a3b8;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: rgba(2, 6, 23, 0.5);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* =========================================================
+   مؤشر الصفحة
+   ========================================================= */
+.book-page-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 20px;
+    color: #cbd5e1;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 5;
+    letter-spacing: 0.3px;
+}
+
+.page-ind-current {
+    color: #fbbf24;
+    font-size: 1rem;
+    font-weight: 900;
+    text-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
+}
+
+.page-ind-divider {
+    color: #64748b;
+}
+
+.page-ind-total {
+    color: #94a3b8;
+}
+
+/* =========================================================
+   مشهد الكتاب
+   ========================================================= */
+.book-scene {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+    z-index: 3;
+    perspective: 2500px;
+    margin-bottom: 20px;
+}
+
+/* أزرار التنقل */
+.book-nav {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(212, 175, 55, 0.45);
+    color: #fbbf24;
+    font-size: 1.6rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    flex-shrink: 0;
+    font-family: inherit;
+    line-height: 1;
+    padding-bottom: 3px;
+}
+
+.book-nav:hover:not(:disabled) {
+    background: linear-gradient(135deg, #d4af37, #b8860b);
+    color: #ffffff;
+    border-color: #fbbf24;
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.7);
+}
+
+.book-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* =========================================================
+   الكتاب
+   ========================================================= */
+.book {
+    position: relative;
+    width: 100%;
+    max-width: 950px;
+    aspect-ratio: 3 / 2;
+    max-height: 65vh;
+    border-radius: 12px;
+    position: relative;
+    transform-style: preserve-3d;
+    box-shadow: 
+        0 40px 80px rgba(0, 0, 0, 0.7),
+        0 0 120px rgba(212, 175, 55, 0.15);
+}
+
+/* الغلاف الخلفي (الجلد) */
+.book-cover-back {
+    position: absolute;
+    inset: -10px;
+    border-radius: 12px;
+    background: 
+        linear-gradient(135deg, #3a2418 0%, #1f140a 50%, #2a1810 100%);
+    box-shadow: 
+        inset 0 0 30px rgba(0, 0, 0, 0.7),
+        inset 0 0 60px rgba(139, 105, 20, 0.15);
+    border: 2px solid #0f0805;
+    z-index: 0;
+}
+
+.book-cover-back::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 6px;
+    pointer-events: none;
+}
+
+.book-cover-back::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            rgba(0, 0, 0, 0.08) 0px,
+            rgba(0, 0, 0, 0.08) 2px,
+            transparent 2px,
+            transparent 4px
+        );
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* الكتاب الداخلي (الصفحات) */
+.book-inner {
+    position: absolute;
+    inset: 8px;
+    background: #fdf6e3;
+    border-radius: 5px;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    box-shadow: inset 0 0 60px rgba(139, 105, 20, 0.15);
+    z-index: 1;
+}
+
+/* صفحة واحدة */
+.book-page {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: #fdf6e3;
+    background-image: 
+        radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.06), transparent 35%),
+        radial-gradient(circle at 85% 85%, rgba(212, 175, 55, 0.06), transparent 35%);
+    overflow: hidden;
+    z-index: 2;
+}
+
+.book-page-left {
+    left: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.book-page-right {
+    right: 0;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+/* ظل قرب الكعب */
+.book-page-left::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.18), transparent);
+    pointer-events: none;
+    z-index: 3;
+}
+
+.book-page-right::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.18), transparent);
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* كعب الكتاب */
+.book-spine {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 100%;
+    background: linear-gradient(to right, 
+        rgba(139, 105, 20, 0.3) 0%, 
+        rgba(139, 105, 20, 0.15) 30%,
+        rgba(0, 0, 0, 0.2) 50%,
+        rgba(139, 105, 20, 0.15) 70%,
+        rgba(139, 105, 20, 0.3) 100%);
+    z-index: 4;
+    pointer-events: none;
+}
+
+.book-spine::before,
+.book-spine::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background: rgba(139, 105, 20, 0.5);
+}
+
+.book-spine::before {
+    top: 15px;
+    bottom: 15px;
+    border-left: 1px dashed rgba(139, 105, 20, 0.6);
+}
+
+/* =========================================================
+   الصفحة القلابة
+   ========================================================= */
+.flip-wrapper {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    transform-style: preserve-3d;
+    z-index: 10;
+    display: none;
+    pointer-events: none;
+    /* تسريع الأنيميشن بفيزياء الورق */
+    transition: transform 0.85s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    will-change: transform;
+}
+
+
+.flip-wrapper.forward {
+    left: 50%;
+    transform-origin: left center;
+}
+
+.flip-wrapper.forward.flipping {
+    transform: rotateY(-180deg);
+}
+
+.flip-wrapper.backward {
+    left: 0;
+    transform-origin: right center;
+}
+
+.flip-wrapper.backward.flipping {
+    transform: rotateY(180deg);
+}
+
+.flip-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+    background: #fdf6e3;
+    background-image: 
+        radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.06), transparent 35%),
+        radial-gradient(circle at 85% 85%, rgba(212, 175, 55, 0.06), transparent 35%);
+}
+
+.flip-back {
+    transform: rotateY(180deg);
+}
+
+/* ظل ديناميكي واقعي أثناء القلب */
+.flip-shadow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.5));
+    opacity: 0;
+    transition: opacity 0.85s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    z-index: 5;
+}
+
+.flip-wrapper.flipping .flip-shadow {
+    opacity: 1;
+}
+
+/* ظل يسقط على الصفحة الساكنة أثناء القلب */
+.book-page-left.flipping-shadow::after,
+.book-page-right.flipping-shadow::after {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.4), transparent);
+    opacity: 1;
+    transition: opacity 0.85s;
+}
+
+/* =========================================================
+   محتوى الصفحة
+   ========================================================= */
+.page-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+}
+
+/* زخارف الزوايا */
+.page-corner {
+    position: absolute;
+    font-size: 0.85rem;
+    color: #b8860b;
+    opacity: 0.6;
+    text-shadow: 0 0 8px rgba(184, 134, 11, 0.6);
+    pointer-events: none;
+}
+
+.page-corner-tl { top: 10px; right: 12px; }
+.page-corner-tr { top: 10px; left: 12px; }
+.page-corner-bl { bottom: 10px; right: 12px; }
+.page-corner-br { bottom: 10px; left: 12px; }
+
+/* ترويسة الصفحة */
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    width: 100%;
+    justify-content: center;
+}
+
+.header-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #b8860b, transparent);
+    max-width: 80px;
+}
+
+.header-label {
+    font-family: 'Aref Ruqaa', 'Amiri', serif;
+    font-size: 1.1rem;
+    color: #b8860b;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-shadow: 0 0 12px rgba(184, 134, 11, 0.4);
+    padding: 0 8px;
+}
+
+
+.photo-wrapper {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    min-height: 0;
+    max-height: 60%; /* منع الصورة من أخذ كل المساحة */
+    overflow: hidden;
+}
+
+.photo-frame {
+    position: relative;
+    width: 85%; /* حجم الإطار نسبة للصفحة */
+    aspect-ratio: 3 / 4; /* نسبة ثابتة للصور الشخصية */
+    padding: 8px;
+    background: linear-gradient(135deg, #f5ecd5, #e8dcb8, #f5ecd5);
+    border: 2px solid #b8860b;
+    border-radius: 4px;
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.25),
+        inset 0 0 20px rgba(184, 134, 11, 0.15);
+    transform: rotate(-1.5deg);
+    transition: transform 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-frame:hover {
+    transform: rotate(0deg) scale(1.03);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.photo-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* يمنع تشوه الصورة ويقطع الزوائد */
+    border: 1px solid rgba(139, 105, 20, 0.3);
+    border-radius: 2px;
+    background: #f5ecd5;
+}
+
+.photo-frame::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%) rotate(2deg);
+    width: 50%;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-left: 1px dashed rgba(0,0,0,0.1);
+    border-right: 1px dashed rgba(0,0,0,0.1);
+    z-index: 5;
+}
+
+
+/* شريط الاسم */
+.name-display {
+    margin-top: 14px;
+    font-family: 'Aref Ruqaa', 'Amiri', serif;
+    font-size: 1.35rem;
+    color: #5a2817;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+    position: relative;
+    padding: 0 8px;
+}
+
+.name-display::before,
+.name-display::after {
+    content: "✦";
+    color: #b8860b;
+    font-size: 0.75rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.7;
+}
+
+.name-display::before { right: -5px; }
+.name-display::after { left: -5px; }
+
+/* شارة الوظيفة */
+.job-badge {
+    margin-top: 6px;
+    display: inline-block;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #fdf6e3;
+    background: linear-gradient(135deg, #8b6914, #b8860b);
+    padding: 4px 14px;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(184, 134, 11, 0.4);
+    letter-spacing: 0.3px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* العبارة الشخصية */
+.page-message {
+    margin-top: 10px;
+    font-family: 'Amiri', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: #6b4a1f;
+    text-align: center;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-top: 1px solid rgba(184, 134, 11, 0.3);
+    border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+    max-width: 95%;
+    position: relative;
+}
+
+.page-message::before,
+.page-message::after {
+    content: "❝";
+    position: absolute;
+    color: rgba(184, 134, 11, 0.4);
+    font-size: 1rem;
+    font-family: Georgia, serif;
+}
+
+.page-message::before { top: 2px; right: 6px; }
+.page-message::after { content: "❞"; bottom: 2px; left: 6px; }
+
+/* الحاشية الصغيرة */
+.page-caption {
+    margin-top: 8px;
+    font-family: 'Amiri', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: #8b6914;
+    opacity: 0.75;
+    text-align: center;
+    letter-spacing: 0.3px;
+}
+
+/* رقم الصفحة */
+.page-number {
+    position: absolute;
+    bottom: 8px;
+    font-family: 'Amiri', serif;
+    font-size: 0.72rem;
+    color: #8b6914;
+    font-weight: 700;
+    opacity: 0.75;
+    letter-spacing: 1px;
+}
+
+.book-page-left .page-number {
+    left: 14px;
+}
+
+.book-page-right .page-number {
+    right: 14px;
+}
+
+/* =========================================================
+   الشريط السفلي
+   ========================================================= */
+.book-bottombar {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 18px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 5;
+    flex-wrap: wrap;
+}
+
+.book-jump-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    background: rgba(2, 6, 23, 0.6);
+    border: 1.5px solid rgba(212, 175, 55, 0.4);
+    border-radius: 12px;
+    color: #fbbf24;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.book-jump-btn:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: #fbbf24;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.book-quick-jump {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+    min-width: 250px;
+}
+
+.book-quick-jump label {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.book-quick-jump input {
+    width: 70px;
+    padding: 7px 10px;
+    background: rgba(2, 6, 23, 0.7);
+    border: 1.5px solid rgba(212, 175, 55, 0.35);
+    border-radius: 10px;
+    color: #fbbf24;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.book-quick-jump input:focus {
+    border-color: #fbbf24;
+    background: rgba(2, 6, 23, 0.9);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.book-quick-jump button {
+    padding: 7px 14px;
+    background: linear-gradient(135deg, #d4af37, #b8860b);
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+
+.book-quick-jump button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(212, 175, 55, 0.7);
+}
+
+/* =========================================================
+   Toast
+   ========================================================= */
+.loading-toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-120px);
+    background: linear-gradient(135deg, #d4af37, #b8860b);
+    color: #ffffff;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.6);
+    z-index: 3000;
+    transition: transform 0.4s ease;
+}
+
+.loading-toast.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+.loading-toast.error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+/* =========================================================
+   استجابة الجوال
+   ========================================================= */
+/* =========================================================
+   استجابة الجوال - كتاب أفقي (صفحتان جنباً إلى جنب)
+   ========================================================= */
+@media (max-width: 768px) {
+    .book-body {
+        padding: 8px 6px 15px;
+    }
+    
+    /* ===== الشريط العلوي ===== */
+    .book-topbar {
+        padding: 8px 10px;
+        margin-bottom: 10px;
+        border-radius: 14px;
+        gap: 8px;
+    }
+    
+    .book-title-wrap {
+        gap: 6px;
+    }
+    
+    .book-title-icon {
+        font-size: 1.4rem;
+    }
+    
+    .book-title-wrap h1 {
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .book-title-wrap p {
+        font-size: 0.55rem;
+        letter-spacing: 1.5px;
+    }
+    
+    .book-back-btn {
+        padding: 7px 9px;
+        border-radius: 10px;
+    }
+    
+    .book-back-btn .back-text {
+        display: none;
+    }
+    
+    .book-music-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
+    }
+    
+    /* ===== شريط البحث ===== */
+    .book-search-wrap {
+        margin-bottom: 10px;
+        max-width: 100%;
+    }
+    
+    .book-search-input {
+        padding: 10px 38px 10px 38px;
+        font-size: 0.82rem;
+        border-radius: 22px;
+    }
+    
+    .search-ico {
+        right: 14px;
+        font-size: 0.9rem;
+    }
+    
+    .book-search-clear {
+        width: 24px;
+        height: 24px;
+        font-size: 0.7rem;
+    }
+    
+    /* ===== مؤشر الصفحة ===== */
+    .book-page-indicator {
+        padding: 5px 14px;
+        font-size: 0.72rem;
+        margin-bottom: 10px;
+    }
+    
+    .page-ind-current {
+        font-size: 0.9rem;
+    }
+    
+    /* ===== مشهد الكتاب ===== */
+    .book-scene {
+        position: relative;
+        display: block;                /* ← إلغاء flex القديم */
+        padding: 0 2px;
+        perspective: 1500px;
+    }
+    
+    /* الكتاب: عرض كامل + نسبة أفقية */
+    .book {
+        width: 100%;
+        max-width: 100%;
+        aspect-ratio: 3 / 2;           /* ← نسبة أفقية مثل الكتاب الحقيقي */
+        height: auto;
+        max-height: none;
+        margin: 0;
+        order: initial;
+    }
+    
+    /* الأزرار: عائمة على جانبي الكتاب */
+    .book-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+        width: 38px;
+        height: 38px;
+        font-size: 1.2rem;
+        padding-bottom: 2px;
+        background: rgba(15, 23, 42, 0.92);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 2px solid rgba(212, 175, 55, 0.7);
+        box-shadow: 
+            0 4px 15px rgba(0, 0, 0, 0.6),
+            0 0 20px rgba(212, 175, 55, 0.3);
+        color: #fbbf24;
+        display: flex;                 /* ← إعادة الإظهار */
+        order: initial;
+    }
+    
+    .book-nav-prev {
+        right: 4px;
+        left: auto;
+    }
+    
+    .book-nav-next {
+        left: 4px;
+        right: auto;
+    }
+    
+    .book-nav:hover:not(:disabled),
+    .book-nav:active:not(:disabled) {
+        background: linear-gradient(135deg, #d4af37, #b8860b);
+        color: #ffffff;
+        transform: translateY(-50%) scale(1.1);
+    }
+    
+    /* ===== الكتاب الداخلي: إلغاء التخطيط العمودي ===== */
+    .book-inner {
+        display: block;                /* ← إلغاء flex القديم */
+    }
+    
+    /* الصفحات: نصفين جنباً إلى جنب */
+    .book-page {
+        position: absolute;
+        top: 0;
+        width: 50%;                    /* ← نصفين أفقياً */
+        height: 100%;
+        border-radius: 0 !important;
+    }
+    
+    .book-page-left {
+        left: 0;
+        top: 0;
+        border-top-left-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+    }
+    
+    .book-page-right {
+        right: 0;
+        top: 0;
+        left: auto;
+        border-top-right-radius: 4px !important;
+        border-bottom-right-radius: 4px !important;
+    }
+    
+    /* كعب عمودي (كما في الأصل) */
+    .book-spine {
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        right: auto;
+        width: 14px;
+        height: 100%;
+        transform: translateX(-50%);
+        background: linear-gradient(to right, 
+            rgba(139, 105, 20, 0.3) 0%, 
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(139, 105, 20, 0.3) 100%);
+    }
+    
+    .book-spine::before {
+        top: 8px;
+        bottom: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 1px dashed rgba(139, 105, 20, 0.6);
+    }
+    
+    /* ظلال الكعب: عمودية (كما الأصل) */
+    .book-page-left::after {
+        width: 20px;
+        height: 100%;
+        top: 0;
+        bottom: auto;
+        right: 0;
+        left: auto;
+        background: linear-gradient(to left, rgba(0, 0, 0, 0.2), transparent);
+    }
+    
+    .book-page-right::after {
+        width: 20px;
+        height: 100%;
+        top: 0;
+        bottom: auto;
+        left: 0;
+        right: auto;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.2), transparent);
+    }
+    
+    /* ===== محتوى الصفحة: تصغير الأحجام ===== */
+    .page-inner {
+        padding: 8px 6px;
+    }
+    
+    .page-corner {
+        font-size: 0.55rem;
+    }
+    
+    .page-corner-tl { top: 4px; right: 6px; }
+    .page-corner-tr { top: 4px; left: 6px; }
+    .page-corner-bl { bottom: 4px; right: 6px; }
+    .page-corner-br { bottom: 4px; left: 6px; }
+    
+    .page-header {
+        margin-bottom: 5px;
+        gap: 5px;
+    }
+    
+    .header-label {
+        font-size: 0.72rem;
+        letter-spacing: 1.5px;
+        padding: 0 4px;
+    }
+    
+    .header-line {
+        max-width: 30px;
+    }
+    
+    .photo-wrapper {
+        padding: 3px;
+    }
+    
+    .photo-frame {
+        padding: 3px;
+        border-width: 1.5px;
+    }
+    
+    .name-display {
+        font-size: 0.72rem;
+        margin-top: 4px;
+        padding: 0 4px;
+        letter-spacing: 0.2px;
+    }
+    
+    .name-display::before,
+    .name-display::after {
+        font-size: 0.45rem;
+    }
+    
+    .job-badge {
+        font-size: 0.52rem;
+        padding: 2px 8px;
+        margin-top: 3px;
+        letter-spacing: 0.1px;
+    }
+    
+    .page-message {
+        font-size: 0.55rem;
+        padding: 3px 5px;
+        margin-top: 3px;
+        line-height: 1.4;
+        max-width: 100%;
+    }
+    
+    .page-message::before,
+    .page-message::after {
+        font-size: 0.7rem;
+    }
+    
+    .page-caption {
+        font-size: 0.55rem;
+        margin-top: 3px;
+    }
+    
+    .page-number {
+        bottom: 3px;
+        font-size: 0.5rem;
+    }
+    
+    .book-page-left .page-number { left: 6px; }
+    .book-page-right .page-number { right: 6px; }
+    
+    /* ===== الشريط السفلي ===== */
+    .book-bottombar {
+        padding: 8px 10px;
+        gap: 6px;
+        border-radius: 14px;
+        flex-wrap: wrap;
+        flex-direction: row;           /* ← إلغاء العمودي القديم */
+    }
+    
+    .book-jump-btn {
+        padding: 6px 11px;
+        font-size: 0.7rem;
+        border-radius: 10px;
+    }
+    
+    .book-quick-jump {
+        gap: 5px;
+        min-width: 0;
+        flex-wrap: nowrap;
+        order: initial;                /* ← إلغاء ترتيب قديم */
+        width: auto;
+    }
+    
+    .book-quick-jump label {
+        font-size: 0.68rem;
+        white-space: nowrap;
+    }
+    
+    .book-quick-jump input {
+        width: 50px;
+        padding: 5px 6px;
+        font-size: 0.75rem;
+    }
+    
+    .book-quick-jump button {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+    }
+    
+    .loading-toast {
+        font-size: 0.8rem;
+        padding: 10px 18px;
+    }
+}
+
+/* =========================================================
+   شاشات صغيرة جداً (أقل من 400px)
+   ========================================================= */
+@media (max-width: 400px) {
+    .book-title-wrap h1 {
+        font-size: 0.88rem;
+    }
+    
+    .book-title-wrap p {
+        font-size: 0.5rem;
+    }
+    
+    .book-title-icon {
+        font-size: 1.2rem;
+    }
+    
+    .name-display {
+        font-size: 0.65rem;
+    }
+    
+    .job-badge {
+        font-size: 0.48rem;
+        padding: 2px 6px;
+    }
+    
+    .page-message {
+        font-size: 0.5rem;
+        padding: 2px 4px;
+    }
+    
+    .page-caption {
+        font-size: 0.5rem;
+    }
+    
+    .header-label {
+        font-size: 0.65rem;
+    }
+    
+    .book-nav {
+        width: 34px;
+        height: 34px;
+        font-size: 1.05rem;
+    }
+    
+    .book-jump-btn {
+        padding: 5px 9px;
+        font-size: 0.65rem;
+    }
+    
+    .book-quick-jump label {
+        font-size: 0.62rem;
+    }
+}
+
+/* =========================================================
+   الجوال في الوضع الأفقي (Landscape)
+   ========================================================= */
+@media (max-width: 900px) and (orientation: landscape) {
+    .book-body {
+        padding: 6px;
+    }
+    
+    .book-topbar {
+        padding: 6px 10px;
+        margin-bottom: 6px;
+    }
+    
+    .book-search-wrap {
+        margin-bottom: 6px;
+    }
+    
+    .book-page-indicator {
+        margin-bottom: 6px;
+        padding: 4px 10px;
+    }
+    
+    .book {
+        max-height: 55vh;
+    }
+    
+    .book-bottombar {
+        padding: 6px 10px;
+    }
+}
+
+/* =========================================================
+   زر قائمة الموسيقى + لوحة الاختيار
+   ========================================================= */
+
+.book-music-list-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8b6914, #d4af37);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(139, 105, 20, 0.5);
+    font-family: inherit;
+}
+
+.book-music-list-btn:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 6px 25px rgba(212, 175, 55, 0.8);
+}
+
+/* الخلفية المعتمة */
+.book-music-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.book-music-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* لوحة اختيار الموسيقى */
+.book-music-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 25px 25px 0 0;
+    padding: 20px 18px calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1000;
+    max-height: 65vh;
+    overflow-y: auto;
+    box-shadow: 0 -15px 60px rgba(0, 0, 0, 0.7);
+}
+
+.book-music-panel.active {
+    transform: translateY(0);
+}
+
+.book-music-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.book-music-panel-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #fbbf24;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+}
+
+.book-music-panel-close {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-family: inherit;
+    font-weight: 700;
+}
+
+.book-music-panel-close:hover {
+    background: rgba(239, 68, 68, 0.35);
+    transform: rotate(90deg);
+}
+
+.book-music-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.book-music-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: rgba(2, 6, 23, 0.6);
+    border: 1.5px solid rgba(212, 175, 55, 0.2);
+    border-radius: 15px;
+    color: #e2e8f0;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: right;
+    position: relative;
+    overflow: hidden;
+}
+
+.book-music-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
+    transition: left 0.6s;
+}
+
+.book-music-item:hover::before {
+    left: 100%;
+}
+
+.book-music-item:hover {
+    background: rgba(2, 6, 23, 0.85);
+    border-color: rgba(212, 175, 55, 0.5);
+    transform: translateX(-3px);
+}
+
+.book-music-item.active {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(184, 134, 11, 0.1));
+    border-color: #d4af37;
+    color: #fbbf24;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.35), inset 0 0 20px rgba(212, 175, 55, 0.08);
+}
+
+.book-music-item-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    color: white;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+}
+
+.book-music-item.active .book-music-item-icon {
+    background: linear-gradient(135deg, #fbbf24, #d4af37);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+    animation: musicIconBeat 1.2s ease-in-out infinite;
+}
+
+@keyframes musicIconBeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.book-music-item-name {
+    flex: 1;
+    line-height: 1.3;
+}
+
+.book-music-item-status {
+    font-size: 1.1rem;
+    opacity: 0.5;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+
+.book-music-item.active .book-music-item-status {
+    opacity: 1;
+    color: #fbbf24;
+    animation: statusPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* إخفاء زر قائمة الموسيقى إذا لا يوجد سوى مقطع واحد */
+.book-music-list-btn.hidden {
+    display: none;
+}
+
+/* استجابة الجوال */
+@media (max-width: 768px) {
+    .book-music-list-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.95rem;
+    }
+    
+    .book-music-panel {
+        padding: 16px 14px calc(20px + env(safe-area-inset-bottom, 0px));
+    }
+    
+    .book-music-panel-title {
+        font-size: 0.95rem;
+    }
+    
+    .book-music-item {
+        padding: 12px 14px;
+        font-size: 0.85rem;
+        gap: 12px;
+    }
+    
+    .book-music-item-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+}
+
+/* ===== جوائز الطالب في صفحة الكتاب ===== */
+.page-awards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+    margin-top: 6px;
+    padding: 0 4px;
+    max-height: 42px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.page-award-badge {
+    display: inline-block;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #8b6914;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(184, 134, 11, 0.12));
+    border: 1px solid rgba(184, 134, 11, 0.55);
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    box-shadow: 0 1px 4px rgba(184, 134, 11, 0.25);
+    line-height: 1.3;
+    letter-spacing: 0.1px;
+}
+
+/* على الجوال */
+@media (max-width: 768px) {
+    .page-awards {
+        gap: 3px;
+        margin-top: 4px;
+        max-height: 32px;
+    }
+    .page-award-badge {
+        font-size: 0.5rem;
+        padding: 1px 6px;
+        border-radius: 8px;
+    }
+}
+
+@media (max-width: 400px) {
+    .page-award-badge {
+        font-size: 0.45rem;
+        padding: 1px 5px;
+    }
+}
