@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SENIORS 2027 | Medical Physics - Al-Hadi University</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+
+        /* ===== الخلفية ===== */
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a1128 0%, #1e3a8a 40%, #1e40af 70%, #0369a1 100%);
+            background-attachment: fixed;
+            color: #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 12px 40px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-elements {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+            overflow: hidden; opacity: 0.15;
+        }
+        .bg-elements span {
+            position: absolute; font-size: 3rem; color: #7dd3fc;
+            animation: floatUp linear infinite; filter: blur(1px);
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; } 90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .glow-top {
+            position: fixed; top: -150px; left: 50%;
+            transform: translateX(-50%);
+            width: 600px; height: 400px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none; z-index: 0;
+            animation: pulseGlow 6s ease-in-out infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+            50% { transform: translateX(-50%) scale(1.2); opacity: 0.9; }
+        }
+
+        header, .controls, .video-section, .grid-container, .footer-note { position: relative; z-index: 1; }
+
+        /* ===== الترويسة ===== */
+        .poster-header {
+            text-align: center; margin-bottom: 20px;
+            width: 100%; max-width: 900px;
+            padding: 20px 15px;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 22px;
+            border: 1px solid rgba(125, 211, 252, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), inset 0 0 60px rgba(59, 130, 246, 0.1);
+        }
+        .graduation-cap { font-size: 2rem; display: block; margin-bottom: 8px; animation: bounce 3s ease-in-out infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+        .poster-header h1 {
+            font-size: 2.6rem; color: #ffffff;
+            letter-spacing: 8px; margin-bottom: 10px;
+            display: flex; justify-content: center; align-items: center; gap: 15px;
+            font-weight: 900;
+            text-shadow: 0 0 30px rgba(125, 211, 252, 0.8), 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .atom-icon {
+            display: inline-block; font-size: 2.2rem; color: #7dd3fc;
+            animation: spin 8s linear infinite;
+            filter: drop-shadow(0 0 10px #38bdf8);
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .divider {
+            width: 80%; height: 1px; margin: 10px auto;
+            background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+        }
+        .poster-header h2 { font-size: 1.3rem; color: #7dd3fc; margin-bottom: 6px; font-weight: 700; }
+        .poster-header h3 { font-size: 0.8rem; color: #bae6fd; letter-spacing: 4px; margin-bottom: 12px; opacity: 0.85; }
+
+        .year-badge {
+            display: inline-flex; align-items: center; gap: 15px;
+            font-size: 1.5rem; font-weight: 900; color: #ffffff;
+            background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+            padding: 5px 25px; border-radius: 40px;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.6), inset 0 1px 0 rgba(255,255,255,0.3);
+            letter-spacing: 3px;
+        }
+
+        /* ===== رسالة التهنئة ===== */
+.congrats-message {
+    margin-top: 20px;
+    padding: 15px 18px;
+    position: relative;
+    text-align: center;
+    border-top: 1px solid rgba(125, 211, 252, 0.3);
+    border-bottom: 1px solid rgba(125, 211, 252, 0.3);
+    background: linear-gradient(180deg, 
+        rgba(56, 189, 248, 0.05) 0%, 
+        rgba(56, 189, 248, 0.1) 50%, 
+        rgba(56, 189, 248, 0.05) 100%);
+    border-radius: 15px;
+    animation: fadeInCongrats 1.5s ease-out;
+}
+
+@keyframes fadeInCongrats {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.congrats-decoration {
+    font-size: 1.8rem;
+    color: #38bdf8;
+    line-height: 1;
+    margin-bottom: 5px;
+    text-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
+    font-family: Georgia, serif;
+    opacity: 0.8;
+}
+.congrats-decoration.bottom {
+    margin-top: 5px;
+    margin-bottom: 0;
+    transform: rotate(180deg);
+}
+
+.congrats-line {
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    margin-bottom: 6px;
+    letter-spacing: 0.2px;
+}
+.congrats-line .highlight {
+    color: #7dd3fc;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(125, 211, 252, 0.5);
+}
+
+.congrats-highlight {
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 10px 0;
+    padding: 8px 15px;
+    background: linear-gradient(135deg, 
+        rgba(14, 165, 233, 0.2), 
+        rgba(59, 130, 246, 0.15));
+    border-right: 3px solid #38bdf8;
+    border-left: 3px solid #38bdf8;
+    border-radius: 10px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.2);
+    animation: gentleGlow 3s ease-in-out infinite;
+}
+@keyframes gentleGlow {
+    0%, 100% { box-shadow: 0 0 25px rgba(56, 189, 248, 0.2); }
+    50% { box-shadow: 0 0 40px rgba(56, 189, 248, 0.4); }
+}
+.congrats-highlight strong {
+    color: #fbbf24;
+    font-weight: 900;
+    text-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+}
+
+.congrats-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 8px 0;
+    color: #38bdf8;
+}
+.congrats-ornament span:first-child,
+.congrats-ornament span:last-child {
+    display: block;
+    width: 50px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+}
+.congrats-ornament span:nth-child(2) {
+    font-size: 0.8rem;
+    text-shadow: 0 0 10px #38bdf8;
+    animation: sparkle 2s ease-in-out infinite;
+}
+@keyframes sparkle {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.3); opacity: 1; }
+}
+
+.congrats-final {
+    color: #fbbf24;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    margin-top: 6px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+}
+
+/* الجوال */
+@media (max-width: 600px) {
+    .congrats-message { padding: 12px 12px; }
+    .congrats-line { font-size: 0.8rem; line-height: 1.7; }
+    .congrats-highlight { font-size: 0.9rem; padding: 8px 10px; margin: 8px 0; }
+    .congrats-final { font-size: 0.82rem; }
+    .congrats-decoration { font-size: 1.5rem; }
+    .congrats-ornament { margin: 6px 0; }
+}
+
+        /* ===== شريط البحث ===== */
+        .controls {
+            width: 100%; max-width: 900px;
+            display: flex; flex-direction: column; gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-wrapper { position: relative; width: 100%; }
+        .search-box {
+            width: 100%; padding: 12px 45px 12px 18px;
+            border: 1px solid rgba(125, 211, 252, 0.4);
+            border-radius: 30px; font-size: 0.95rem; outline: none;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            color: white; text-align: right;
+            transition: all 0.3s;
+        }
+        .search-box::placeholder { color: #94a3b8; }
+        .search-box:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+            background: rgba(15, 23, 42, 0.85);
+        }
+        .search-icon {
+            position: absolute; right: 18px; top: 50%;
+            transform: translateY(-50%); color: #38bdf8;
+            font-size: 1rem; pointer-events: none;
+        }
+        .counter {
+            text-align: center; font-size: 0.85rem; color: #bae6fd;
+            font-weight: 600; letter-spacing: 0.5px;
+        }
+        .counter span {
+            background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+            color: white; padding: 2px 12px; border-radius: 20px;
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+        }
+
+        /* ===== قسم الفيديو ===== */
+        .video-section {
+            width: 100%; max-width: 900px;
+            margin-bottom: 25px;
+            padding: 18px;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 25px;
+            border: 1px solid rgba(125, 211, 252, 0.3);
+            box-shadow: 
+                0 15px 50px rgba(0, 0, 0, 0.4),
+                0 0 80px rgba(56, 189, 248, 0.15),
+                inset 0 0 60px rgba(59, 130, 246, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-section::before {
+            content: "";
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #38bdf8, #a855f7, #fbbf24, #38bdf8);
+            background-size: 400% 400%;
+            border-radius: 27px;
+            z-index: -1;
+            animation: borderRotate 6s linear infinite;
+            opacity: 0.6;
+        }
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+
+        .video-title {
+            text-align: center;
+            color: #7dd3fc;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .video-title::before, .video-title::after {
+            content: "";
+            display: block;
+            width: 40px; height: 1px;
+            background: linear-gradient(90deg, transparent, #38bdf8);
+        }
+        .video-title::after {
+            background: linear-gradient(90deg, #38bdf8, transparent);
+        }
+
+        .video-frame {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 18px;
+            overflow: hidden;
+            background: #000;
+            position: relative;
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .video-frame video,
+        .video-frame iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border: none;
+            background: #000;
+        }
+
+        /* ===== الشبكة ===== */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+            gap: 6px;
+            width: 100%;
+            max-width: 1100px;
+            padding: 16px;
+            background: rgba(15, 23, 42, 0.35);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 22px;
+            border: 1px solid rgba(125, 211, 252, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 0 60px rgba(59, 130, 246, 0.05);
+        }
+
+        @media (min-width: 600px) { 
+            .grid-container { grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 7px; }
+        }
+        @media (min-width: 1000px) { 
+            .grid-container { grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 8px; padding: 20px; }
+        }
+
+        .grid-item {
+            aspect-ratio: 1 / 1;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            background: #1e3a8a;
+            position: relative;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+            animation: cardAppear 0.5s ease-out backwards;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(125, 211, 252, 0.2);
+        }
+
+        @keyframes cardAppear {
+            from { opacity: 0; transform: scale(0.7); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .grid-item:hover {
+            transform: scale(1.35);
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.7), 0 0 0 2px #38bdf8;
+            z-index: 20;
+        }
+
+        .grid-item img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+            transition: filter 0.3s;
+        }
+        .grid-item:hover img { filter: brightness(1.2); }
+
+        .grid-item .mini-number {
+            position: absolute;
+            top: 3px; right: 3px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(4px);
+            color: #7dd3fc;
+            font-size: 0.55rem;
+            font-weight: 700;
+            padding: 1px 5px;
+            border-radius: 6px;
+            line-height: 1.3;
+            border: 1px solid rgba(125, 211, 252, 0.3);
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        .grid-item:hover .mini-number { opacity: 0; }
+
+        .grid-item .mini-name {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 15px 4px 4px;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.3s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            pointer-events: none;
+        }
+        .grid-item:hover .mini-name { opacity: 1; transform: translateY(0); }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 20px;
+            color: #bae6fd; font-size: 1.1rem;
+        }
+        .no-results span { font-size: 3rem; display: block; margin-bottom: 10px; }
+
+        /* ===== زر العودة للأعلى ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 25px; left: 25px;
+            background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            width: 48px; height: 48px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.6);
+            display: none;
+            align-items: center; justify-content: center;
+            z-index: 500;
+            transition: all 0.3s;
+        }
+        .scroll-top:hover { transform: translateY(-5px) scale(1.1); }
+        .scroll-top.visible { display: flex; }
+
+        /* ===== النافذة المنبثقة ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 6, 23, 0.92);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: modalFade 0.3s ease;
+        }
+        @keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
+        .modal.active { display: flex; }
+
+        .modal-card {
+            perspective: 1200px;
+            width: 100%;
+            max-width: 340px;
+            aspect-ratio: 3 / 4;
+            position: relative;
+        }
+        @media (min-width: 768px) { .modal-card { max-width: 430px; } }
+
+        .modal-card-inner {
+            position: relative; width: 100%; height: 100%;
+            text-align: center;
+            transition: transform 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        .modal-card.is-flipped .modal-card-inner { transform: rotateY(180deg); }
+
+        .modal-front, .modal-back {
+            position: absolute; width: 100%; height: 100%;
+            -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            border-radius: 25px; overflow: hidden;
+            display: flex; flex-direction: column;
+            background: #0f172a;
+            border: 3px solid #38bdf8;
+            box-shadow: 0 20px 60px rgba(56, 189, 248, 0.5), 0 0 100px rgba(56, 189, 248, 0.2);
+        }
+
+        .modal-front img, .modal-back img { width: 100%; object-fit: cover; }
+        .modal-front img { height: 80%; }
+        .modal-back img { height: 55%; }
+
+        .modal-front .name-tag {
+            height: 20%; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #1e3a8a, #0ea5e9);
+            color: white; font-weight: 800; font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        .modal-back {
+            transform: rotateY(180deg);
+            border-color: #fbbf24;
+            box-shadow: 0 20px 60px rgba(251, 191, 36, 0.5), 0 0 100px rgba(251, 191, 36, 0.2);
+        }
+
+        /* الوجه الخلفي: اسم + مهنة + عبارة شخصية */
+        .modal-back .info-tag {
+            height: 45%;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            color: white; padding: 12px 15px;
+            border-top: 2px solid #fbbf24;
+            gap: 5px;
+            overflow-y: auto;
+        }
+        .modal-back .info-tag .name {
+            font-weight: 800; font-size: 1.15rem;
+            letter-spacing: 1px; color: white;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+        }
+        .modal-back .info-tag .job-title {
+            font-size: 0.85rem; color: #fcd34d;
+            font-weight: 700;
+            padding: 3px 12px;
+            background: rgba(251, 191, 36, 0.15);
+            border-radius: 15px;
+            border: 1px solid rgba(251, 191, 36, 0.4);
+        }
+        .modal-back .info-tag .message {
+            font-size: 0.78rem;
+            color: #cbd5e1;
+            font-style: italic;
+            line-height: 1.5;
+            margin-top: 5px;
+            padding: 8px 10px;
+            border-right: 2px solid #38bdf8;
+            background: rgba(56, 189, 248, 0.08);
+            border-radius: 5px;
+            text-align: right;
+            width: 100%;
+            max-height: 70px;
+            overflow-y: auto;
+        }
+        .modal-back .info-tag .message::-webkit-scrollbar {
+            width: 4px;
+        }
+        .modal-back .info-tag .message::-webkit-scrollbar-thumb {
+            background: #38bdf8;
+            border-radius: 2px;
+        }
+
+        /* أزرار التنقل بين الطلاب */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            color: #7dd3fc;
+            border: 2px solid rgba(125, 211, 252, 0.5);
+            border-radius: 50%;
+            width: 45px; height: 45px;
+            font-size: 1.3rem; font-weight: bold;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        .nav-btn:hover {
+            background: #1e40af;
+            color: white;
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+        }
+        .nav-btn.prev { right: -55px; }
+        .nav-btn.next { left: -55px; }
+
+        @media (max-width: 600px) {
+            .nav-btn { width: 38px; height: 38px; font-size: 1.1rem; }
+            .nav-btn.prev { right: -42px; }
+            .nav-btn.next { left: -42px; }
+        }
+
+        /* عدّاد الطالب داخل النافذة */
+        .student-counter {
+            position: absolute;
+            top: 10px; left: 10px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(8px);
+            color: #7dd3fc;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 15px;
+            border: 1px solid rgba(125, 211, 252, 0.4);
+            z-index: 10;
+        }
+
+        .close-btn {
+            position: absolute; top: -50px; right: 0;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            width: 42px; height: 42px;
+            font-size: 1.3rem; font-weight: bold;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.6);
+            transition: transform 0.3s;
+        }
+        .close-btn:hover { transform: rotate(90deg) scale(1.1); }
+
+        .flip-hint {
+            position: absolute; bottom: -45px; left: 50%; transform: translateX(-50%);
+            color: #7dd3fc; font-size: 0.9rem; white-space: nowrap;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+        .footer-note {
+            margin-top: 25px;
+            color: #7dd3fc;
+            font-size: 0.85rem;
+            text-align: center;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+        .footer-note .heart { color: #ef4444; }
+
+        /* تحميل مؤقت للصور */
+        .grid-item img {
+            background: linear-gradient(90deg, #1e3a8a, #1e40af, #1e3a8a);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-elements" id="bgElements"></div>
+    <div class="glow-top"></div>
+
+    <!-- الترويسة -->
+    <header class="poster-header">
+        <span class="graduation-cap">🎓</span>
+        <h1>SENI<span class="atom-icon">⚛</span>RS</h1>
+        <div class="divider"></div>
+        <h2>قسم الفيزياء الطبية</h2>
+        <h3>MEDICAL PHYSICS DEPARTMENT</h3>
+        <div class="year-badge">2027</div>
+        
+        <!-- رسالة التهنئة -->
+<div class="congrats-message">
+    <div class="congrats-decoration">❝</div>
+    <p class="congrats-line">
+        إلى من قضوا لياليهم بين <span class="highlight">معادلات الإشعاع</span> و<span class="highlight">خوارزميات العلاج</span>، وقلوبهم تنبض بالحياة... إلى من جمعوا بين <span class="highlight">دقة الفيزياء</span> و<span class="highlight">رحمة الطب</span>،
+    </p>
+    <p class="congrats-highlight">
+        إلى خريجي الفيزياء الطبية — دفعة 2027<br>
+        في <strong>جامعة الهادي</strong>
+    </p>
+    <div class="congrats-ornament">
+        <span></span><span>✦</span><span></span>
+    </div>
+    <p class="congrats-line">
+        هنيئاً لكم هذا الإنجاز العظيم، فأنتم اليوم <span class="highlight">حرّاس الأمل</span> في مختبرات العلاج، و<span class="highlight">سفراء العلم</span> في غرف التشخيص، و<span class="highlight">عقول المستقبل</span> التي ستحمي الأرواح بالمعرفة.
+    </p>
+    <div class="congrats-ornament">
+        <span></span><span>✦</span><span></span>
+    </div>
+    <p class="congrats-final">
+        بارك الله فيكم، وجعل خطواتكم القادمة نوراً يضيء دروب المرضى، وعزماً يرفع اسم جامعتكم عالياً.
+    </p>
+    <div class="congrats-decoration bottom">❞</div>
+</div>
+    </header>
+
+    <!-- شريط البحث -->
+    <div class="controls">
+        <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" class="search-box" placeholder="ابحث عن اسم الطالب...">
+        </div>
+        <div class="counter">عدد الخريجين: <span id="studentCount">0</span></div>
+    </div>
+
+    <!-- قسم الفيديو -->
+    <section class="video-section">
+        <div class="video-title">✦ فيلم التخرج ✦</div>
+        <div class="video-frame" id="videoFrame">
+            <!-- 
+                📌 استبدل مسار الفيديو حسب الحاجة:
+                
+                خيار 1: فيديو من GitHub (نفس المجلد)
+                <video controls preload="metadata" poster="images/video_poster.jpg">
+                    <source src="video/graduation.mp4" type="video/mp4">
+                    متصفحك لا يدعم الفيديو.
+                </video>
+                
+                خيار 2: فيديو من GitHub Raw
+                <video controls preload="metadata">
+                    <source src="https://raw.githubusercontent.com/USERNAME/REPO/main/video/graduation.mp4" type="video/mp4">
+                </video>
+                
+                خيار 3: فيديو يوتيوب
+                <iframe 
+                    src="https://www.youtube.com/embed/VIDEO_ID" 
+                    title="Graduation Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+                
+                ⬇️ حالياً: فيديو تجريبي (استبدله بمسارك)
+            -->
+            <video controls preload="metadata" playsinline>
+                <source src="video/graduation.mp4" type="video/mp4">
+                متصفحك لا يدعم تشغيل الفيديو.
+            </video>
+        </div>
+    </section>
+
+    <!-- شبكة الصور -->
+    <main class="grid-container" id="studentGrid"></main>
+
+    <button class="scroll-top" id="scrollTopBtn">↑</button>
+
+    <div class="footer-note">
+        صُنع بـ <span class="heart">❤</span> لدفعة الفيزياء الطبية 2027 - جامعة الهادي
+    </div>
+
+    <!-- النافذة المنبثقة -->
+    <div class="modal" id="studentModal">
+        <div class="modal-card" id="modalCard">
+            <!-- عدّاد الطالب -->
+            <div class="student-counter" id="studentCounter">1 / 126</div>
+            
+            <!-- أزرار التنقل -->
+            <button class="nav-btn prev" id="prevBtn" title="السابق">‹</button>
+            <button class="nav-btn next" id="nextBtn" title="التالي">›</button>
+            
+            <button class="close-btn" id="closeModal">✕</button>
+            
+            <div class="modal-card-inner">
+                <div class="modal-front">
+                    <img id="modalChildImg" src="" alt="طفل">
+                    <div class="name-tag" id="modalChildName">الاسم</div>
+                </div>
+                <div class="modal-back">
+                    <img id="modalAdultImg" src="" alt="متخرج">
+                    <div class="info-tag">
+                        <span class="name" id="modalAdultName">الاسم</span>
+                        <span class="job-title" id="modalAdultJob">المهنة</span>
+                        <div class="message" id="modalAdultMessage">العبارة الشخصية</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-hint">👆 اضغط على البطاقة لقلبها</div>
+        </div>
+    </div>
+
+    <!-- ملف بيانات الطلاب -->
+    <script src="students.js"></script>
+
+    <script>
+        // =========================================================
+        // 🌟 العناصر العائمة في الخلفية
+        // =========================================================
+        const bgSymbols = ['⚛', '☢', '🧬', '💊', '🩺', '🦴', '🔬', '📊', '⚕', '🧠'];
+        const bgContainer = document.getElementById('bgElements');
+        for (let i = 0; i < 20; i++) {
+            const span = document.createElement('span');
+            span.textContent = bgSymbols[i % bgSymbols.length];
+            span.style.left = Math.random() * 100 + '%';
+            span.style.fontSize = (Math.random() * 2 + 2) + 'rem';
+            span.style.animationDuration = (Math.random() * 20 + 20) + 's';
+            span.style.animationDelay = (Math.random() * 20) + 's';
+            bgContainer.appendChild(span);
+        }
+
+        // =========================================================
+        // كود التشغيل
+        // =========================================================
+        const grid = document.getElementById('studentGrid');
+        const searchInput = document.getElementById('searchInput');
+        const studentCountEl = document.getElementById('studentCount');
+        const modal = document.getElementById('studentModal');
+        const modalCard = document.getElementById('modalCard');
+        const closeModalBtn = document.getElementById('closeModal');
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const studentCounter = document.getElementById('studentCounter');
+
+        const modalChildImg = document.getElementById('modalChildImg');
+        const modalAdultImg = document.getElementById('modalAdultImg');
+        const modalChildName = document.getElementById('modalChildName');
+        const modalAdultName = document.getElementById('modalAdultName');
+        const modalAdultJob = document.getElementById('modalAdultJob');
+        const modalAdultMessage = document.getElementById('modalAdultMessage');
+
+        let currentStudentIndex = 0;
+        let currentFilteredStudents = [...students];
+
+        // رسم الشبكة
+        function renderGrid(filterText = '') {
+            grid.innerHTML = '';
+            currentFilteredStudents = students.filter(s => 
+                s.name.toLowerCase().includes(filterText.toLowerCase())
+            );
+
+            studentCountEl.textContent = `${currentFilteredStudents.length} / ${students.length}`;
+
+            if (currentFilteredStudents.length === 0) {
+                grid.innerHTML = '<div class="no-results"><span>🔍</span>لا يوجد طالب بهذا الاسم</div>';
+                return;
+            }
+
+            const fragment = document.createDocumentFragment();
+            currentFilteredStudents.forEach((student, index) => {
+                const item = document.createElement('div');
+                item.className = 'grid-item';
+                item.style.animationDelay = Math.min(index * 0.015, 1.2) + 's';
+                item.innerHTML = `
+                    <img src="${student.childImg}" alt="${student.name}" loading="lazy" 
+                         onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect fill=%22%231e3a8a%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2230%22 fill=%22%237dd3fc%22 text-anchor=%22middle%22>?</text></svg>'">
+                    <div class="mini-number">${student.id}</div>
+                    <div class="mini-name">${student.name}</div>
+                `;
+                item.addEventListener('click', () => openModal(index));
+                fragment.appendChild(item);
+            });
+            grid.appendChild(fragment);
+        }
+
+        // البحث
+        searchInput.addEventListener('input', (e) => {
+            renderGrid(e.target.value.trim());
+        });
+
+        // فتح النافذة
+        function openModal(index) {
+            currentStudentIndex = index;
+            const student = currentFilteredStudents[index];
+            
+            modalChildImg.src = student.childImg;
+            modalAdultImg.src = student.adultImg;
+            modalChildName.textContent = student.name;
+            modalAdultName.textContent = student.name;
+            modalAdultJob.textContent = student.jobTitle || 'خريج فيزياء طبية';
+            modalAdultMessage.textContent = student.message || '';
+            
+            // إخفاء العبارة إذا كانت فارغة
+            if (!student.message) {
+                modalAdultMessage.style.display = 'none';
+            } else {
+                modalAdultMessage.style.display = 'block';
+            }
+            
+            studentCounter.textContent = `${index + 1} / ${currentFilteredStudents.length}`;
+            
+            // إخفاء أزرار التنقل إذا كانت النتائج أقل من 2
+            const showNav = currentFilteredStudents.length > 1;
+            prevBtn.style.display = showNav ? 'flex' : 'none';
+            nextBtn.style.display = showNav ? 'flex' : 'none';
+            
+            modalCard.classList.remove('is-flipped');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // إغلاق
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+        // التنقل بين الطلاب
+        function navigate(direction) {
+            let newIndex = currentStudentIndex + direction;
+            if (newIndex < 0) newIndex = currentFilteredStudents.length - 1;
+            if (newIndex >= currentFilteredStudents.length) newIndex = 0;
+            openModal(newIndex);
+        }
+        prevBtn.addEventListener('click', (e) => { e.stopPropagation(); navigate(-1); });
+        nextBtn.addEventListener('click', (e) => { e.stopPropagation(); navigate(1); });
+
+        // لوحة المفاتيح
+        document.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('active')) return;
+            if (e.key === 'ArrowRight') navigate(-1); // في RTL، اليمين = السابق
+            if (e.key === 'ArrowLeft') navigate(1);   // في RTL، اليسار = التالي
+            if (e.key === 'Escape') closeModal();
+            if (e.key === ' ') { e.preventDefault(); modalCard.classList.toggle('is-flipped'); }
+        });
+
+        // قلب البطاقة + الاحتفال
+        modalCard.addEventListener('click', (e) => {
+            // منع القلب عند الضغط على الأزرار
+            if (e.target.closest('.nav-btn') || e.target.closest('.close-btn')) return;
+            modalCard.classList.toggle('is-flipped');
+            if (modalCard.classList.contains('is-flipped')) triggerConfetti();
+        });
+
+        // زر العودة للأعلى
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) scrollTopBtn.classList.add('visible');
+            else scrollTopBtn.classList.remove('visible');
+        });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // الاحتفال
+        function triggerConfetti() {
+            const duration = 2500;
+            const animationEnd = Date.now() + duration;
+            const colors = ['#38bdf8', '#3b82f6', '#a855f7', '#fbbf24', '#ffffff'];
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 2000, colors };
+            const randomInRange = (min, max) => Math.random() * (max - min) + min;
+
+            const interval = setInterval(() => {
+                const timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+                const particleCount = 60 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount,
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount,
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+
+        // تشغيل أولي
+        renderGrid();
+    </script>
+</body>
+</html>
