@@ -25,7 +25,7 @@ const students = [
         adultImg: "images/1_adult.jpg",
         awards: [
             "😊 أكثر شخص مبتسم",
-            "🧠 عبقري الفيزياء"
+            "🧠 24 ساعة عقلة شغال"
         ]
     },
     {
@@ -60,7 +60,8 @@ const students = [
         childImg: "images/4_child.jpg",
         adultImg: "images/4_adult.jpg",
         awards: [
-            "📚 أكثر شخص مثابر"
+            "📚 أكثر شخص مثابر",
+           "📚 ما يقتنع بسرعة"
         ]
     }
     
