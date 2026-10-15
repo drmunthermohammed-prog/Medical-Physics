@@ -638,84 +638,87 @@ body.book-body {
 /* =========================================================
    محتوى الصفحة
    ========================================================= */
+/* =========================================================
+   محتوى الصفحة - تخطيط جديد
+   ========================================================= */
+
 .page-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    padding: 22px 20px;
+    padding: 12px 10px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 2;
+    gap: 4px;
 }
 
-/* زخارف الزوايا */
+/* ===== زخارف الزوايا ===== */
 .page-corner {
     position: absolute;
-    font-size: 0.85rem;
+    font-size: 0.72rem;
     color: #b8860b;
-    opacity: 0.6;
-    text-shadow: 0 0 8px rgba(184, 134, 11, 0.6);
+    opacity: 0.55;
     pointer-events: none;
 }
+.page-corner-tl { top: 8px; right: 10px; }
+.page-corner-tr { top: 8px; left: 10px; }
+.page-corner-bl { bottom: 8px; right: 10px; }
+.page-corner-br { bottom: 8px; left: 10px; }
 
-.page-corner-tl { top: 10px; right: 12px; }
-.page-corner-tr { top: 10px; left: 12px; }
-.page-corner-bl { bottom: 10px; right: 12px; }
-.page-corner-br { bottom: 10px; left: 12px; }
-
-/* ترويسة الصفحة */
+/* ===== الترويسة ===== */
 .page-header {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 15px;
+    gap: 8px;
     width: 100%;
     justify-content: center;
+    margin-bottom: 2px;
 }
 
 .header-line {
     flex: 1;
     height: 1px;
     background: linear-gradient(90deg, transparent, #b8860b, transparent);
-    max-width: 80px;
+    max-width: 60px;
 }
 
 .header-label {
     font-family: 'Aref Ruqaa', 'Amiri', serif;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: #b8860b;
     font-weight: 700;
-    letter-spacing: 3px;
-    text-shadow: 0 0 12px rgba(184, 134, 11, 0.4);
-    padding: 0 8px;
+    letter-spacing: 2px;
+    padding: 0 6px;
+    text-shadow: 0 0 10px rgba(184, 134, 11, 0.4);
 }
 
-
+/* =========================================================
+   إطار الصورة (مشترك)
+   ========================================================= */
 .photo-wrapper {
-    flex: 1;
     width: 100%;
+    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px;
-    min-height: 0;
-    max-height: 60%; /* منع الصورة من أخذ كل المساحة */
+    padding: 3px 5px;
     overflow: hidden;
 }
 
 .photo-frame {
-    position: relative;
-    width: 85%; /* حجم الإطار نسبة للصفحة */
-    aspect-ratio: 3 / 4; /* نسبة ثابتة للصور الشخصية */
-    padding: 8px;
+    max-width: 100%;
+    max-height: 100%;
+    padding: 5px;
     background: linear-gradient(135deg, #f5ecd5, #e8dcb8, #f5ecd5);
     border: 2px solid #b8860b;
     border-radius: 4px;
     box-shadow: 
         0 6px 20px rgba(0, 0, 0, 0.25),
         inset 0 0 20px rgba(184, 134, 11, 0.15);
-    transform: rotate(-1.5deg);
+    transform: rotate(-1deg);
     transition: transform 0.4s ease;
     display: flex;
     align-items: center;
@@ -723,95 +726,133 @@ body.book-body {
 }
 
 .photo-frame:hover {
-    transform: rotate(0deg) scale(1.03);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: rotate(0deg) scale(1.02);
 }
 
 .photo-frame img {
     display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* يمنع تشوه الصورة ويقطع الزوائد */
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     border: 1px solid rgba(139, 105, 20, 0.3);
     border-radius: 2px;
     background: #f5ecd5;
 }
 
-.photo-frame::before {
-    content: "";
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%) rotate(2deg);
-    width: 50%;
-    height: 24px;
-    background-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    border-left: 1px dashed rgba(0,0,0,0.1);
-    border-right: 1px dashed rgba(0,0,0,0.1);
-    z-index: 5;
+/* =========================================================
+   الصفحة اليسرى (الطفل) — الصورة تملأ الصفحة
+   ========================================================= */
+.book-page-left .photo-wrapper {
+    flex: 1;                    /* ← يأخذ كل المساحة المتبقية */
 }
 
+.book-page-left .name-display {
+    flex: 0 0 auto;
+    margin-top: 4px;
+    font-size: 1rem;
+    padding: 0 6px;
+}
 
-/* شريط الاسم */
+.book-page-left .page-caption {
+    flex: 0 0 auto;
+    margin-top: 2px;
+    font-size: 0.7rem;
+    opacity: 0.75;
+}
+
+/* =========================================================
+   الصفحة اليمنى (الكبير) — الصورة نصف الصفحة والنص نصفها
+   ========================================================= */
+.book-page-right .photo-wrapper {
+    flex: 0 0 52%;              /* ← 52% للصورة */
+}
+
+.book-page-right .name-display {
+    flex: 0 0 auto;
+    margin-top: 4px;
+    font-size: 1rem;
+    padding: 0 6px;
+}
+
+.book-page-right .job-badge {
+    flex: 0 0 auto;
+    margin-top: 3px;
+    font-size: 0.68rem;
+    padding: 3px 12px;
+}
+
+.book-page-right .page-awards {
+    flex: 0 0 auto;
+    margin-top: 4px;
+    max-height: 42px;
+    overflow-y: auto;
+    width: 100%;
+    padding: 0 4px;
+}
+
+.book-page-right .page-message {
+    flex: 0 1 auto;
+    margin-top: 4px;
+    font-size: 0.7rem;
+    line-height: 1.4;
+    padding: 4px 10px;
+    max-height: 55px;
+    overflow-y: auto;
+    width: 95%;
+}
+
+/* =========================================================
+   عناصر مشتركة (الأسماء)
+   ========================================================= */
 .name-display {
-    margin-top: 14px;
     font-family: 'Aref Ruqaa', 'Amiri', serif;
-    font-size: 1.35rem;
     color: #5a2817;
     font-weight: 700;
     text-align: center;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     line-height: 1.3;
     text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
     position: relative;
-    padding: 0 8px;
 }
 
 .name-display::before,
 .name-display::after {
     content: "✦";
     color: #b8860b;
-    font-size: 0.75rem;
+    font-size: 0.6rem;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     opacity: 0.7;
 }
 
-.name-display::before { right: -5px; }
-.name-display::after { left: -5px; }
+.name-display::before { right: -3px; }
+.name-display::after { left: -3px; }
 
-/* شارة الوظيفة */
 .job-badge {
-    margin-top: 6px;
     display: inline-block;
     font-family: 'Cairo', sans-serif;
-    font-size: 0.72rem;
     font-weight: 700;
     color: #fdf6e3;
     background: linear-gradient(135deg, #8b6914, #b8860b);
-    padding: 4px 14px;
     border-radius: 15px;
     box-shadow: 0 3px 10px rgba(184, 134, 11, 0.4);
     letter-spacing: 0.3px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    flex: 0 0 auto;
 }
 
-/* العبارة الشخصية */
 .page-message {
-    margin-top: 10px;
     font-family: 'Amiri', serif;
     font-style: italic;
-    font-size: 0.82rem;
     color: #6b4a1f;
     text-align: center;
-    line-height: 1.5;
-    padding: 8px 12px;
     border-top: 1px solid rgba(184, 134, 11, 0.3);
     border-bottom: 1px solid rgba(184, 134, 11, 0.3);
-    max-width: 95%;
     position: relative;
+    flex: 0 1 auto;
 }
 
 .page-message::before,
@@ -819,23 +860,41 @@ body.book-body {
     content: "❝";
     position: absolute;
     color: rgba(184, 134, 11, 0.4);
-    font-size: 1rem;
     font-family: Georgia, serif;
 }
 
-.page-message::before { top: 2px; right: 6px; }
-.page-message::after { content: "❞"; bottom: 2px; left: 6px; }
+.page-message::before { top: 1px; right: 4px; font-size: 0.8rem; }
+.page-message::after { content: "❞"; bottom: 1px; left: 4px; font-size: 0.8rem; }
 
-/* الحاشية الصغيرة */
 .page-caption {
-    margin-top: 8px;
     font-family: 'Amiri', serif;
     font-style: italic;
-    font-size: 0.78rem;
     color: #8b6914;
-    opacity: 0.75;
     text-align: center;
     letter-spacing: 0.3px;
+    flex: 0 0 auto;
+}
+
+.page-awards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+}
+
+.page-award-badge {
+    display: inline-block;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: #8b6914;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(184, 134, 11, 0.12));
+    border: 1px solid rgba(184, 134, 11, 0.55);
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    box-shadow: 0 1px 4px rgba(184, 134, 11, 0.25);
+    line-height: 1.3;
 }
 
 /* رقم الصفحة */
